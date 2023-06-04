@@ -17,13 +17,18 @@ with open('./xgb_model.pkl', 'rb') as f:
 
 
 dataset_mean = pd.read_csv('파일위치/dataset_mean.csv', encoding = 'utf-8')
+@app.route('/mean', methods=['GET'])
+def get_dataset_mean():
+    return dataset_mean.to_json()
+#     return dataset_mean.to_json(orient='records')
+
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()  # POST 요청에서 딕셔너리 데이터 가져오기
     features = preprocess_data(data)  # 데이터 전처리 함수 호출
     prediction = loaded_model.predict(loaded_scaler.transform(features))  # 예측
     print(prediction)
-    result = {'prediction': prediction.tolist,'mean': dataset_mean}
+    result = {'prediction': prediction.tolist}
     return jsonify(result)
 
 
