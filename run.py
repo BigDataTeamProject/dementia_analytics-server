@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 # 모델 로드
 with open('./xgb_model.pkl', 'rb') as f:
-    loaded_scaler = joblib.load('xgb_scaler.pkl')
-    loaded_model = joblib.load('xgb_model.pkl')
+    loaded_scaler = joblib.load('final_lgbm_scaler.pkl')
+    loaded_model = joblib.load('final_lgbm_model.pkl')
 
 
 dataset_mean = pd.read_csv('파일위치/dataset_mean.csv', encoding = 'utf-8')
